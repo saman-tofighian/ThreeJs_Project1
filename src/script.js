@@ -36,7 +36,6 @@ const galaxy = () => {
   stars = new three.BufferGeometry();
   const starsPosition = new Float32Array(parameters.cnt * 3);
 
-  
   let color = new Float32Array(parameters.cnt * 3);
 
   let insideColor = new three.Color(parameters.insideColor);
@@ -45,17 +44,13 @@ const galaxy = () => {
   for (let i = 0; i < parameters.cnt; ++i) {
     let i3 = i * 3;
 
-   
     let radius = Math.random() * parameters.radius;
 
-    
     let spin = radius * parameters.spin;
 
-   
     let branchesAngle =
       ((i % parameters.branches) / parameters.branches) * Math.PI * 2;
 
-    
     let x =
       Math.pow(Math.random(), parameters.randomnesspower) *
       (Math.random() < 0.5 ? 1 : -1) *
@@ -72,25 +67,20 @@ const galaxy = () => {
       parameters.randomness *
       radius;
 
-  
     starsPosition[i3 + 0] = radius * Math.cos(branchesAngle + spin) + x;
     starsPosition[i3 + 1] = y;
     starsPosition[i3 + 2] = radius * Math.sin(branchesAngle + spin) + z;
 
-    
-
-    
     let mixer = insideColor.clone();
     mixer.lerp(outsideColor, radius / parameters.radius);
 
-   
     color[i3 + 0] = mixer.r;
     color[i3 + 1] = mixer.g;
     color[i3 + 2] = mixer.b;
   }
 
   stars.setAttribute("position", new three.BufferAttribute(starsPosition, 3));
-  
+
   stars.setAttribute("color", new three.BufferAttribute(color, 3));
 
   starMaterial = new three.PointsMaterial({
